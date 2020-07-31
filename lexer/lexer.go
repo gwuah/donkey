@@ -3,16 +3,15 @@ package lexer
 import "github.com/gwuah/donkey/token"
 
 type Lexer struct {
-	input string
-	position int
+	input        string
+	position     int
 	readPosition int
-	char byte
+	char         byte
 }
 
 func newToken(tokenType token.TokenType, char byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(char)}
 }
-
 
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
@@ -32,10 +31,24 @@ func (l *Lexer) readChar() {
 }
 
 func (l *Lexer) NextToken() token.Token {
-	var tok token.Token;
+	var tok token.Token
 	switch l.char {
-	case '=' :
+	case '=':
 		tok = newToken(token.ASSIGN, l.char)
+	case ';':
+		tok = newToken(token.SEMICOLON, l.char)
+	case '(':
+		tok = newToken(token.LPAREN, l.char)
+	case ')':
+		tok = newToken(token.RPAREN, l.char)
+	case ',':
+		tok = newToken(token.COMMA, l.char)
+	case '+':
+		tok = newToken(token.PLUS, l.char)
+	case '{':
+		tok = newToken(token.LBRACE, l.char)
+	case '}':
+		tok = newToken(token.RBRACE, l.char)
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
