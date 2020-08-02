@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/user"
 
-	lexer "github.com/gwuah/donkey/lexer"
+	"github.com/gwuah/donkey/repl"
 )
 
 func print(value interface{}) {
@@ -11,9 +13,13 @@ func print(value interface{}) {
 }
 
 func main() {
-	input := `=+(){},;`
-	l := lexer.New(input)
+	user, err := user.Current()
+	if err != nil {
+		panic(err)
+	}
 
-	l.NextToken()
+	fmt.Printf("\nHello %s!, Welcome to DonkeyLang REPL!\n", user.Username)
+
+	repl.Start(os.Stdin, os.Stdout)
 
 }
