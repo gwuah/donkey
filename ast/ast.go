@@ -30,6 +30,7 @@ func (p *Program) TokenLiteral() string {
 
 type Identifier struct {
 	Token token.Token
+	Value string
 }
 
 func (i *Identifier) expressionNode()      {}
